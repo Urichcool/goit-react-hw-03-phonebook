@@ -18,35 +18,35 @@ export class App extends Component {
     filter: '',
   };
 
-  formSubmitHandler = data => {
-   this.setState({
-     contacts: this.state.contacts.concat(data),
-   });
-}
-
-  formInputHandler = data => {
-    this.setState({ filter: data });
-  };
-
-  setContact = (id) => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
-    }));
-  };
-
   componentDidMount() {
-    const contacts = localStorage.getItem('contacts')
-    const parsedContacts = JSON.parse(contacts)
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
     if (parsedContacts) {
-       this.setState({ contacts: parsedContacts });
+      this.setState({ contacts: parsedContacts });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
+
+  formSubmitHandler = data => {
+    this.setState({
+      contacts: this.state.contacts.concat(data),
+    });
+  };
+
+  formInputHandler = data => {
+    this.setState({ filter: data });
+  };
+
+  setContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
 
   render() {
     return (
